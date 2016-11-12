@@ -1,22 +1,19 @@
 <?php
 
-//use lib\ApplicationSome;
+use lib\Github\Api\Gist\Comments;
+use lib\Github\HttpClient\Message\ResponseMediator;
 
-//spl_autoload(Application, '.php');
-
-//define('CLASS_DIR', 'lib/');
-//set_include_path(get_include_path().PATH_SEPARATOR.CLASS_DIR);
-//spl_autoload_extensions('.php');
-//spl_autoload_register();
-
-//require_once 'lib/Application.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 spl_autoload_register(function ($class) {
-    //echo $class . "<br />";
-    //$classChanged =  str_replace("\\", "/", $class);
     include str_replace("\\", "/", $class) . ".php";
 });
 
-$class = new lib\ApplicationSome();
+/** @var ResponseMediator $class */
+$responseMediator = new ResponseMediator();
 
-echo $class;
+echo $responseMediator->getApiLimit();
+
+
+$comments = new Comments();
