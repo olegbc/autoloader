@@ -2,8 +2,7 @@
 
 return [
     'base_path' => '',
-    'packeges' => [
-        'LibaOne' => '',
-        'LibaTwo' => 'lib/',
+    'packages' => [
+        'controllers' => '',
     ],
 ];

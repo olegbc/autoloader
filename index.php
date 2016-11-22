@@ -1,50 +1,30 @@
 <?php
 
-use lib\Github\Api\Gist\Comments;
-use lib\Github\HttpClient\Message\ResponseMediator;
-use LibaOne\LibaOneClassOne;
-use LibaTwo\LibaTwoClassOne;
+use controllers\Controller;
 
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
-//
+ini_set("display_errors", 1);
 
+require_once __DIR__ . "/Autoloader.php";
 
+Autoloader::setConfig(include  __DIR__ . "/config/data.php");
 
-
-//spl_autoload_register(function ($class) {
-//    include str_replace("\\", "/", $class) . ".php";
-//});
-
-//include_once 'LibaOne/LibaOneClassOne.php';
-
-//$config = include  __DIR__ . '/config/data.php';
-require_once __DIR__ . '/Autoloader.php';
-
-Autoloader::setConfig(include  __DIR__ . '/config/data.php');
-
-
-
-//$loader =  Autoloader::getLoader();
-//
-///** @var ResponseMediator $class */
-
-$libaOneClassOne = new LibaOneClassOne();
-$libaTwoClassOne = new LibaTwoClassOne();
-
-
-echo $libaOneClassOne->iAm();
-echo $libaTwoClassOne->iAm();
-
-
-//$responseMediator = new ResponseMediator();
-
-
-//
-//echo $responseMediator->getApiLimit();
-//
-//
-//$comments = new Comments();
-
+if (!empty($_GET['r'])){
+    $route = "controllers\\" . ucfirst($_GET['r']) . "Controller";
+    /** @var Controller $controller */
+    try{
+        $controller = new $route();
+    } catch (\Exception $e) {
+        http_response_code(404);
+        header('Location: http://autoloader/404.php');
+        exit;
+    }
+    if (!$controller) {
+        http_response_code(404);
+        header('Location: http://autoloader/404.php');
+        exit;
+    }
+    $controller->execute();
+}
 
 
