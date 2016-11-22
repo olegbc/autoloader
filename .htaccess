@@ -1,0 +1,15 @@
+#RewriteEngine on
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule .* index.php [L]
+
+
+Order Allow,Deny
+<FilesMatch "^index\.php$">
+Allow from all
+</FilesMatch>
+<FilesMatch "^404\.php$">
+Allow from all
+</FilesMatch>
+
+#Redirect 404 / http://autoloader/404.php

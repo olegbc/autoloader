@@ -1,0 +1,15 @@
+{
+    "name": "user/learning",
+    "authors": [
+        {
+            "name": "olegkamuz",
+            "email": "olegkamuz@gmail.com"
+        }
+    ],
+    "require": {
+        "monolog/monolog": "1.0.*"
+    },
+    "autoload": {
+        "psr-4": {"lib\\": "lib/"}
+    }
+}

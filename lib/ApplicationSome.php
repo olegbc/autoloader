@@ -10,9 +10,11 @@ class ApplicationSome
 
     public function __toString()
     {
-        $print = new application\Controller();
-        $print->printSome();
+        //$print = new application\Controller();
+        //$print->printSome();
 
         return 'Ok';
     }
+
+
 }

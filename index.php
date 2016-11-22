@@ -1,22 +1,30 @@
 <?php
 
-//use lib\ApplicationSome;
+use controllers\Controller;
 
-//spl_autoload(Application, '.php');
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
 
-//define('CLASS_DIR', 'lib/');
-//set_include_path(get_include_path().PATH_SEPARATOR.CLASS_DIR);
-//spl_autoload_extensions('.php');
-//spl_autoload_register();
+require_once __DIR__ . "/Autoloader.php";
 
-//require_once 'lib/Application.php';
+Autoloader::setConfig(include  __DIR__ . "/config/data.php");
 
-spl_autoload_register(function ($class) {
-    //echo $class . "<br />";
-    //$classChanged =  str_replace("\\", "/", $class);
-    include str_replace("\\", "/", $class) . ".php";
-});
+if (!empty($_GET['r'])){
+    $route = "controllers\\" . ucfirst($_GET['r']) . "Controller";
+    /** @var Controller $controller */
+    try{
+        $controller = new $route();
+    } catch (\Exception $e) {
+        http_response_code(404);
+        header('Location: http://autoloader/404.php');
+        exit;
+    }
+    if (!$controller) {
+        http_response_code(404);
+        header('Location: http://autoloader/404.php');
+        exit;
+    }
+    $controller->execute();
+}
 
-$class = new lib\ApplicationSome();
 
-echo $class;
